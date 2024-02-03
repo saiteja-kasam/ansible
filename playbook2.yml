@@ -9,7 +9,7 @@
         update_cache: yes
     - name: Edit the idnex.hmtl file
       copy:
-        content: "IntelliQ"
+        content: "saiteja kinguuu"
         dest: /var/www/html/index.html
     - name: Restar apache2
       service:
