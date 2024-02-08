@@ -1,0 +1,32 @@
+---
+- name: configuring tomcat with loops
+  hosts: all
+  tasks:
+    - name: install tomcat9 and tomcat9
+      apt:
+        name: "{{item.a}}"
+        state: "{{item.b}}"
+        update_cache: "{{item.c}}"
+      with_items:
+        - {a: tomcat9,b: present,c: yes}
+        - {a: tomcat9-admin,b: present,c: no}
+    - name: copy tomcat-users.xml file
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat9
+    - name: pause
+      pause:
+        minutes: 1
+    - name: restart tomcat
+      service:
+        name: tomcat9
+        state: restarted
+    - name: check tomcat on all server
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items: 
+        - http://172.31.20.72:8080
+        - http://172.31.29.95:8080
+...
+

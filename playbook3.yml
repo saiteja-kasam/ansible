@@ -1,0 +1,29 @@
+---
+- name: configuring tomcat
+  hosts: all
+  tasks:
+    - name: install tomcat9
+      apt: 
+        name: tomcat9
+        state: present
+        update_cache: yes
+    - name: install tomcat9-admin
+      apt:
+        name: tomcat9-admin
+        state: present
+    - name: copy tomcat-users.xml file
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat9
+    - name: pause
+      pause:
+        minutes: 1
+    - name: restart tomcat
+      service: 
+        name: tomcat9
+        state: restarted
+    - name: check tomcat on server 1
+      uri:
+        url: http://172.31.20.72:8080
+        status_code: 200
+...

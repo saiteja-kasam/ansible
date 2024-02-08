@@ -1,0 +1,11 @@
+- name: loops in/uin
+  hosts: all
+  tasks:
+    - name: install s/w
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes 
+      with_items:
+        - tree
+        - git    
