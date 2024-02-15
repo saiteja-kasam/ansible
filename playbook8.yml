@@ -1,0 +1,6 @@
+- name: call child 
+  hosts: all
+  tasks:
+    - name: call child
+      include: playbook9.yml
+
